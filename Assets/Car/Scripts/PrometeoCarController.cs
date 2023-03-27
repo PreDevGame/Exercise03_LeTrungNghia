@@ -32,9 +32,10 @@ public class PrometeoCarController : MonoBehaviour
       public int handbrakeDriftMultiplier = 5; // How much grip the car loses when the user hit the handbrake.
       [Space(10)]
       public Vector3 bodyMassCenter; // This is a vector that contains the center of mass of the car. I recommend to set this value
-                                    // in the points x = 0 and z = 0 of your car. You can select the value that you want in the y axis,
-                                    // however, you must notice that the higher this value is, the more unstable the car becomes.
-                                    // Usually the y value goes from 0 to 1.5.
+                                     // in the points x = 0 and z = 0 of your car. You can select the value that you want in the y axis,
+                                     // however, you must notice that the higher this value is, the more unstable the car becomes.
+                                     // Usually the y value goes from 0 to 1.5.
+
 
     //WHEELS
 

@@ -7,7 +7,7 @@ Shader "Custom/SnowTrack"
         _SnowTex ("Snow Texture (RGB)", 2D) = "white" {}
         _GroundColor ("Ground color", Color) = (1,1,1,1)
         _GroundTex ("Ground Texture (RGB)", 2D) = "white" {}
-        _Splat ("SplatMap", 2D) = "black" {}
+        _Splat ("SplatMap", 2D) = "White" {}
         _Displacement ("Displacement", Range(0, 1.0)) = 0.3
         _Glossiness ("Smoothness", Range(0,1)) = 0.5
         _Metallic ("Metallic", Range(0,1)) = 0.0

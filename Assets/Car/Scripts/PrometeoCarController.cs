@@ -7,6 +7,8 @@ using UnityEngine.UI;
 public class PrometeoCarController : MonoBehaviour
 {
 
+    //CAR SETUP
+
       [Space(20)]
       //[Header("CAR SETUP")]
       [Space(10)]
@@ -263,60 +265,99 @@ public class PrometeoCarController : MonoBehaviour
       // Save the local velocity of the car in the z axis. Used to know if the car is going forward or backwards.
       localVelocityZ = transform.InverseTransformDirection(carRigidbody.velocity).z;
 
-        //CAR PHYSICS
+      //CAR PHYSICS
 
-        //if (useTouchControls && touchControlsSetup){
+      /*
+      The next part is regarding to the car controller. First, it checks if the user wants to use touch controls (for
+      mobile devices) or analog input controls (WASD + Space).
 
-        //  if(throttlePTI.buttonPressed){
-        //    CancelInvoke("DecelerateCar");
-        //    deceleratingCar = false;
-        //    GoForward();
-        //  }
-        //  if(reversePTI.buttonPressed){
-        //    CancelInvoke("DecelerateCar");
-        //    deceleratingCar = false;
-        //    GoReverse();
-        //  }
+      The following methods are called whenever a certain key is pressed. For example, in the first 'if' we call the
+      method GoForward() if the user has pressed W.
 
-        //  if(turnLeftPTI.buttonPressed){
-        //    TurnLeft();
-        //  }
-        //  if(turnRightPTI.buttonPressed){
-        //    TurnRight();
-        //  }
-        //  if(handbrakePTI.buttonPressed)
-        //  {
-        //    CancelInvoke("DecelerateCar");
-        //    deceleratingCar = false;
-        //    Handbrake();
-        //  }
-        //  if(!handbrakePTI.buttonPressed)
-        //  {
-        //    RecoverTraction();
-        //  }
-        //  if((!throttlePTI.buttonPressed && !reversePTI.buttonPressed))
-        //  {
-        //    ThrottleOff();
-        //  }
-        //  if((!reversePTI.buttonPressed && !throttlePTI.buttonPressed) && !handbrakePTI.buttonPressed && !deceleratingCar)
-        //  { 
-        //    InvokeRepeating("DecelerateCar", 0f, 0.1f);
-        //    deceleratingCar = true;
-        //  }
-        //  if(!turnLeftPTI.buttonPressed && !turnRightPTI.buttonPressed && steeringAxis != 0f)
-        //  {
-        //    ResetSteeringAngle();
-        //  }
+      In this part of the code we specify what the car needs to do if the user presses W (throttle), S (reverse),
+      A (turn left), D (turn right) or Space bar (handbrake).
+      */
+      if (useTouchControls && touchControlsSetup){
 
-        //}else{
+        if(throttlePTI.buttonPressed){
+          CancelInvoke("DecelerateCar");
+          deceleratingCar = false;
+          GoForward();
+        }
+        if(reversePTI.buttonPressed){
+          CancelInvoke("DecelerateCar");
+          deceleratingCar = false;
+          GoReverse();
+        }
 
-        KeyboardController();
+        if(turnLeftPTI.buttonPressed){
+          TurnLeft();
+        }
+        if(turnRightPTI.buttonPressed){
+          TurnRight();
+        }
+        if(handbrakePTI.buttonPressed){
+          CancelInvoke("DecelerateCar");
+          deceleratingCar = false;
+          Handbrake();
+        }
+        if(!handbrakePTI.buttonPressed){
+          RecoverTraction();
+        }
+        if((!throttlePTI.buttonPressed && !reversePTI.buttonPressed)){
+          ThrottleOff();
+        }
+        if((!reversePTI.buttonPressed && !throttlePTI.buttonPressed) && !handbrakePTI.buttonPressed && !deceleratingCar){
+          InvokeRepeating("DecelerateCar", 0f, 0.1f);
+          deceleratingCar = true;
+        }
+        if(!turnLeftPTI.buttonPressed && !turnRightPTI.buttonPressed && steeringAxis != 0f){
+          ResetSteeringAngle();
+        }
 
-      //}
+      }else{
+
+        if(Input.GetKey(KeyCode.W)){
+          CancelInvoke("DecelerateCar");
+          deceleratingCar = false;
+          GoForward();
+        }
+        if(Input.GetKey(KeyCode.S)){
+          CancelInvoke("DecelerateCar");
+          deceleratingCar = false;
+          GoReverse();
+        }
+
+        if(Input.GetKey(KeyCode.A)){
+          TurnLeft();
+        }
+        if(Input.GetKey(KeyCode.D)){
+          TurnRight();
+        }
+        if(Input.GetKey(KeyCode.Space)){
+          CancelInvoke("DecelerateCar");
+          deceleratingCar = false;
+          Handbrake();
+        }
+        if(Input.GetKeyUp(KeyCode.Space)){
+          RecoverTraction();
+        }
+        if((!Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.W))){
+          ThrottleOff();
+        }
+        if((!Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.W)) && !Input.GetKey(KeyCode.Space) && !deceleratingCar){
+          InvokeRepeating("DecelerateCar", 0f, 0.1f);
+          deceleratingCar = true;
+        }
+        if(!Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D) && steeringAxis != 0f){
+          ResetSteeringAngle();
+        }
+
+      }
 
 
-        // We call the method AnimateWheelMeshes() in order to match the wheel collider movements with the 3D meshes of the wheels.
-        AnimateWheelMeshes();
+      // We call the method AnimateWheelMeshes() in order to match the wheel collider movements with the 3D meshes of the wheels.
+      AnimateWheelMeshes();
 
     }
 
@@ -334,55 +375,10 @@ public class PrometeoCarController : MonoBehaviour
 
     }
 
-    void KeyboardController()
-    {
-        if (Input.GetAxisRaw("Horizontal") > 0)
-        {
-            CancelInvoke("DecelerateCar");
-            deceleratingCar = false;
-            GoForward();
-        }
-        if (Input.GetAxisRaw("Horizontal") < 0)
-        {
-            CancelInvoke("DecelerateCar");
-            deceleratingCar = false;
-            GoReverse();
-        }
-
-        if (Input.GetAxisRaw("Vertical") > 0)
-        {
-            TurnLeft();
-        }
-        if (Input.GetAxisRaw("Vertical") < 0)
-        {
-            TurnRight();
-        }
-        if (Input.GetKey(KeyCode.Space))
-        {
-            CancelInvoke("DecelerateCar");
-            deceleratingCar = false;
-            Handbrake();
-        }
-        if (Input.GetKeyUp(KeyCode.Space))
-        {
-            RecoverTraction();
-        }
-        if ((!Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.W)))
-        {
-            ThrottleOff();
-        }
-        if ((!Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.W)) && !Input.GetKey(KeyCode.Space) && !deceleratingCar)
-        {
-            InvokeRepeating("DecelerateCar", 0f, 0.1f);
-            deceleratingCar = true;
-        }
-        if (!Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D) && steeringAxis != 0f)
-        {
-            ResetSteeringAngle();
-        }
-    }
-
-
+    // This method controls the car sounds. For example, the car engine will sound slow when the car speed is low because the
+    // pitch of the sound will be at its lowest point. On the other hand, it will sound fast when the car speed is high because
+    // the pitch of the sound will be the sum of the initial pitch + the car speed divided by 100f.
+    // Apart from that, the tireScreechSound will play whenever the car starts drifting or losing traction.
     public void CarSounds(){
 
       if(useSounds){

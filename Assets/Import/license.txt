@@ -1,0 +1,11 @@
+Model Information:
+* title:	NIGHT CITY
+* source:	https://sketchfab.com/3d-models/night-city-f5b1e692c073474482962cb4d0b3420f
+* author:	borkography (https://sketchfab.com/borkography)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "NIGHT CITY" (https://sketchfab.com/3d-models/night-city-f5b1e692c073474482962cb4d0b3420f) by borkography (https://sketchfab.com/borkography) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
